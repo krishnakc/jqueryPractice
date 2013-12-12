@@ -1,0 +1,83 @@
+<html>
+<head>
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+
+function theFunction(name, profession) {
+	//	debugger;
+   // alert("My name is " + name + " and I am a " + profession + ".");
+}
+
+/*theFunction("John", "fireman");
+theFunction.apply(undefined, ["Susan", "school teacher"]);
+theFunction.call(undefined, "Claude", "mathematician");*/
+
+theFunction.prototype._bindAll= function() {
+	console.log("testing prototype");
+},
+theFunction.prototype._attachdata= function(data) {
+	//console.log(data);
+
+	var url2 = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+	var url3 = "http://urls.api.twitter.com/1/urls/count.json"; 
+
+	$.getJSON( url2, {
+	    tags: "mount rainier",
+	    tagmode: "any",
+	    format: "json"
+	  })
+	  .done(function( data ) {
+	    $.each( data.items, function( i, item ) {
+	      //$( "<img/>" ).attr( "src", item.media.m ).appendTo( "#images" );
+	      $(".images").append("\
+	      		<img src='"+item.media.m+"'/>\
+	      	");
+	      if ( i === 3 ) {
+	        return false;
+	      }
+	    });
+  });
+
+}
+
+function testArguments(arguments) {
+	console.log(arguments);
+}
+
+testArguments(["test","test2"]);
+var awardMedals, contenders, gold, rest, silver,
+  __slice = [].slice;
+
+gold = silver = rest = "unknown";
+
+awardMedals = function() {
+  var first, others, second;
+  first = arguments[0], second = arguments[1], others = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+  gold = first;
+  silver = second;
+  return rest = others;
+};
+
+contenders = ["Michael Phelps", "Liu Xiang", "Yao Ming", "Allyson Felix", "Shawn Johnson", "Roman Sebrle", "Guo Jingjing", "Tyson Gay", "Asafa Powell", "Usain Bolt"];
+
+awardMedals.apply(null, contenders);
+
+/*alert("Gold: " + gold);
+
+alert("Silver: " + silver);
+
+alert("The Field: " + rest);
+*/
+var test = new theFunction();
+//test._bindAll();
+test._attachdata();
+
+
+</script>
+</head>
+<body>
+	<section class="wrapper">
+		<div class="images"></div>
+	</section>
+</body>
+</html>
